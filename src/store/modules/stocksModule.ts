@@ -18,7 +18,7 @@ class StocksModule extends VuexModule implements IStocksState {
   private _stocks: IStock[] = []
 
   @Mutation
-  private SET_STOCKS(stocks: IStock[]) {
+  SET_STOCKS(stocks: IStock[]) {
     this._stocks = stocks
   }
 

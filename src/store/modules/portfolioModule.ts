@@ -5,10 +5,10 @@ import {
   Mutation,
   VuexModule
 } from "vuex-module-decorators"
-import store from "@/store/store"
-import { stocksModule } from "@/store/modules/stocksModule"
 import { IOrder } from "@/interfaces/IOrders"
-import { IOwnedStock, IPortfolioStock } from "@/interfaces/IStocks"
+import { IOwnedStock, IPortfolio, IPortfolioStock } from "@/interfaces/IStocks"
+import { stocksModule } from "@/store/modules/stocksModule"
+import store from "@/store/store"
 
 export interface IPortfolioState {
   funds: number
@@ -49,6 +49,12 @@ class PortfolioModule extends VuexModule implements IPortfolioState {
     }
 
     this._funds += quantity * stockPrice
+  }
+
+  @Mutation
+  SET_PORTFOLIO(portfolio: IPortfolio) {
+    this._funds = portfolio.funds
+    this._stocks = portfolio.stocks ? portfolio.stocks : []
   }
 
   @Action({ commit: "BUY_STOCK" })

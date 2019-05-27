@@ -35,8 +35,8 @@
               Save / load <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
-              <li><a href="#">Save data</a></li>
-              <li><a href="#">Load data</a></li>
+              <li><a href="#" @click="saveData">Save data</a></li>
+              <li><a href="#" @click="loadData">Load data</a></li>
             </ul>
           </li>
         </ul>
@@ -47,8 +47,10 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator"
+import { IRemoteData } from "@/interfaces/IStocks"
 import { portfolioModule } from "@/store/modules/portfolioModule"
 import { stocksModule } from "@/store/modules/stocksModule"
+import { generalModule } from "@/store/modules/generalModule"
 
 @Component
 export default class Header extends Vue {
@@ -56,6 +58,20 @@ export default class Header extends Vue {
 
   private endDay() {
     stocksModule.randomizeStocks()
+  }
+
+  private async saveData() {
+    const data: IRemoteData = {
+      funds: portfolioModule.funds,
+      stockPortfolio: portfolioModule.portfolio,
+      stocks: stocksModule.stocks
+    }
+
+    await this.$http.put("data.json", data)
+  }
+
+  private async loadData() {
+    await generalModule.loadData()
   }
 
   private get funds(): number {

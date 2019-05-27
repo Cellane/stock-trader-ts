@@ -12,3 +12,14 @@ export interface IStock {
 export interface IPortfolioStock extends IStock {
   quantity: number
 }
+
+export interface IPortfolio {
+  stocks: IPortfolioStock[]
+  funds: number
+}
+
+export interface IRemoteData {
+  funds: number
+  stockPortfolio: IPortfolioStock[]
+  stocks: IStock[]
+}
